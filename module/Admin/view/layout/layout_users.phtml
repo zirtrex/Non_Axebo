@@ -1,0 +1,35 @@
+<?php 
+if (defined('RUNNING_FROM_ROOT')) {
+    $this->plugin('basePath')->setBasePath($this->basePath().'/public'); 
+} ?>
+
+<?php echo $this->doctype(); ?>
+
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <?php echo $this->headTitle('NON AXEBO: Perfil - '); ?>
+
+    <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        						->appendHttpEquiv('X-UA-Compatible', 'IE=edge'); ?>
+
+    <!-- Le styles -->
+    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/x-icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+    				->prependStylesheet($this->basePath('css/custom.css'))
+                    ->prependStylesheet($this->basePath('css/users.css'))
+    				->prependStylesheet($this->basePath('css/style.css'))
+                    ->prependStylesheet($this->basePath('css/font-awesome.min.css'))
+                    ->prependStylesheet('//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css')
+                    ->prependStylesheet($this->basePath('css/bootstrap.min.css')) ?>
+
+
+
+</head>
+
+<body>
+	<div class="content">
+			<?php echo $this->content; ?>
+	</div>
+<script type="text/javascript" src="<?php echo $this->basePath('js/users_custom.js') ?>"></script>
+</body>
+</html>

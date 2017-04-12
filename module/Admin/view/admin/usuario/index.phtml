@@ -1,0 +1,86 @@
+<?php $url_order = ($this->order == 'ASC') ? 'DESC' : 'ASC'; ?>
+
+<?php
+	$buscarForm = $this->buscarForm;
+	$buscarForm->setAttribute('action', $this->url('usuario'));
+	$buscarForm->prepare();
+?>
+
+<div class="box">
+	<div class="box-title">
+		<i class="glyphicon glyphicon-user"></i>
+		<h3>Usuarios</h3>
+		<div class="pull-right box-toolbar">
+			<a class="btn btn-link btn-xs collapse-box" href="#"><i class="fa fa-chevron-up"></i></a>			
+		</div>
+	</div>
+	<div class="box-body">
+	
+		<div class="row">
+		
+			<div class="col-lg-6 col-md-6 col-sm-8 col-xs-12 margin-bottom">
+				<?php echo $this->form()->openTag($buscarForm);?>
+					<div class="input-group">						
+						<?php echo $this->formInput($buscarForm->get('texto')); ?>
+						<span class="input-group-btn">
+							<?php echo $this->formInput($buscarForm->get('buscar')); ?>
+						</span>
+					</div>
+				<?php echo $this->form()->closeTag($buscarForm);?>
+			</div>
+			
+		</div>
+				
+		<hr>		
+		
+		<?php if($this->usuarios->count() != 0):?>
+			<table class="table table-hover table-striped" data-server="usu">
+			    <thead>
+			    <tr>
+			        <th><a href="<?php echo $this->url('usuario', array('action' => 'index', 'orderby' => 'codusuario', 'order' => $url_order)); ?>">Código<?php if ($this->orderby == 'codusuario'): ?><i class="glyphicon glyphicon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i><?php endif; ?></a></th>
+			        <th><a href="<?php echo $this->url('usuario', array('action' => 'index', 'orderby' => 'usuario', 'order' => $url_order)); ?>">Usuario<?php if ($this->orderby == 'usuario'): ?><i class="glyphicon glyphicon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i><?php endif; ?></a></th>
+			        <th>Rol</th>
+			        <th>Estado</th>
+			        <th>Acciones</th>
+			    </tr>
+			    </thead>
+			    <tbody>
+			    <?php foreach ($this->usuarios as $usuario) : ?>    
+			    <tr>        
+			        <td>
+			        	<?php echo $this->escapeHtml($usuario['codUsuario']);?>
+			        </td>			        
+			        <td><?php echo $this->escapeHtml($usuario['usuario']);?></td>
+			        <td><?php echo $this->escapeHtml($usuario['rol']);?></td>
+			        <td><?php echo $this->escapeHtml($usuario['estado']);?></td>	        
+			        
+			        <td>
+						<a title="Editar usuario" class="btn btn-info btn-sm" href="<?php echo $this->url('usuario', array('action' => 'editar-usuario','codusuario'=>$this->escapeHtml($usuario['codUsuario'])));?>" >
+							<i class="fa fa-edit"></i>  
+						</a>
+						<a title="Eliminar usuario" class="btn btn-danger btn-sm delete-this" id="delete-<?php echo $this->escapeHtml($usuario['codUsuario']);?>" href="<?php echo $this->url('usuario', array('action' => 'eliminar-usuario','codusuario'=>$this->escapeHtml($usuario['codUsuario'])));?>">
+							<i class="fa fa-trash-o"></i>
+						</a>
+					</td>
+			    </tr>
+			    <?php endforeach; ?>
+			    </tbody>
+			    <tfoot>
+			    <tr>
+			        <th>Código</th>
+			        <th>Usuario</th>
+			        <th>Rol</th>
+			        <th>Estado</th>
+			        <th>Acciones</th>
+			    </tr>
+			    </tfoot>    
+			</table>
+
+			<?php echo $this->paginationControl($this->usuarios, 'Sliding', 'paginator', array('route' => 'usuario', 'action' => 'index', 'orderby' => $this->orderby, 'order' => $order));?>
+			<?php else: ?>
+			
+			<h2>No se han encontrado resultados.</h2>
+		
+		<?php endif;?>			
+	</div>
+</div>

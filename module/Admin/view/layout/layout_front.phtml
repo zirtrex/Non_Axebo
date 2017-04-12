@@ -1,0 +1,38 @@
+<?php 
+if (defined('RUNNING_FROM_ROOT')) {
+    $this->plugin('basePath')->setBasePath($this->basePath().'/public'); 
+} ?>
+
+<?php echo $this->doctype(); ?>
+
+
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        
+    	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    	<link href="https://fonts.googleapis.com/css?family=Sansita" rel="stylesheet">
+    	<link href="https://fonts.googleapis.com/css?family=Arvo|Bitter|Della+Respira" rel="stylesheet">
+    	<link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+    	<link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
+    	<link href="https://fonts.googleapis.com/css?family=Sansita" rel="stylesheet">
+    	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    	<link href="https://fonts.googleapis.com/css?family=Mukta+Vaani" rel="stylesheet">
+    	<link href="https://fonts.googleapis.com/css?family=Francois+One" rel="stylesheet">
+        
+        <?php echo $this->headTitle('NON AXEBO'); ?>
+
+        <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            						->appendHttpEquiv('X-UA-Compatible', 'IE=edge'); ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/x-icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath('css/main.css'))?>
+                        
+        <?php echo $this->headscript()->prependFile($this->basePath('js/script.js'), 'text/javascript'); ?>
+
+    </head>
+    <body>   
+		<?php echo $this->content; ?>
+    </body>
+</html>

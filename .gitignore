@@ -1,0 +1,12 @@
+~$*
+*.ini
+.dropbox
+.buildpath
+.DS_Store
+.project
+.settings/
+.*.sw*
+.*.un~
+build/
+nbproject
+tmp/

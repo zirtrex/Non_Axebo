@@ -1,0 +1,16 @@
+{
+    "name": "zirtrex/asistencia_uisrael",
+    "description": "GP-Syllabus Seguimiento Académico Universitario",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "framework",
+        "zf2"
+    ],
+    "homepage": "http://framework.zend.com/",
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.4.*",
+		"dompdf/dompdf" : "0.6.*",
+		"dino/dompdf-module": "dev-master"
+    }
+}

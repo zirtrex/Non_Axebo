@@ -1,0 +1,138 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 08/06/2015, 12:31:24 PM
+    Author     : WEBMASTER
+*/
+
+div#clock {
+    height: 100px;
+    background: white;
+    font-size: 4em;
+    color: #707070;
+    text-align: center;
+    line-height: 100px;
+    border-top: 5px solid #E54B6B;
+    background-image: linear-gradient(#f0f0f0, white);
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    vertical-align: middle;
+}
+
+.login .logo {
+    font-size: 24px;
+    text-align: center;
+}
+
+.login .logo img{
+    width: 150px;
+	height: auto;
+}
+
+.logo .favicon{	
+	width: 46px;
+	padding: 6px 1px !important;
+}
+
+.logo span{	
+	width: 46px;
+	text-shadow: 0 0 2px #707070;
+}
+
+p span{
+	font-size: 22px !important;
+}  
+
+.logo_int{
+	width: 320px;
+	margin: 0 auto;
+}
+
+.sidebar .sidebar-widget.online-users div.full-width {
+    display: inline-block;
+    padding: 4px 10px;
+	color: #bdcfe0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.grafico {
+	position: relative; /* IE is dumb */
+	width: 100%;
+	border: 1px solid #B1D632;
+	padding: 2px;
+}
+
+.grafico .barra {
+	display: block;
+	position: relative;
+	background: #B1D632;
+	text-align: center;
+	color: #333;
+	height: 2em;
+	line-height: 2em;
+}
+
+.grafico_red {
+	border: 1px solid #b33030;
+}
+
+.grafico_green {
+	border: 1px solid #B1D632;
+}
+
+.grafico_yellow {
+	border: 1px solid #ffb527;
+}
+
+.grafico .barra_red {
+	background: #b33030;
+}
+
+.grafico .barra_green {
+	background: #B1D632;
+}
+
+.grafico .barra_yellow {
+	background: #ffb527;
+}
+
+
+.custom-box a{
+	color: #fff;
+	margin-left: 20px;
+}
+
+.custom-box a:hover{
+	text-decoration: underline;
+}
+
+.navbreadcrumbs{
+	float: left;
+    padding: 16px;
+    height: 100%;
+    background-color: #F5F5F5;
+    min-width: 313px;
+}
+
+.margin-bottom{
+	margin-bottom: 10px;
+}
+
+
+.logo > span {
+    display: block;
+    text-align: center;
+    width: auto;
+}

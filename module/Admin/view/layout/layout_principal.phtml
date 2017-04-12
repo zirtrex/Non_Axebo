@@ -1,0 +1,145 @@
+<?php 
+if (defined('RUNNING_FROM_ROOT')) {
+    $this->plugin('basePath')->setBasePath($this->basePath().'/public'); 
+} ?>
+
+<?php echo $this->doctype(); ?>
+
+<?php //var_dump($this->identity())?>
+
+<?php $usuario = $this->usuario_helper($this->identity()['codUsuario'], $this->identity()['rol']);?>
+
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('NON AXEBO'); ?>
+
+        <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            						->appendHttpEquiv('X-UA-Compatible', 'IE=edge'); ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/x-icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        				->prependStylesheet($this->basePath('css/custom.css'))
+        				->prependStylesheet($this->basePath('css/style.css'))
+        				->prependStylesheet($this->basePath('css/users.css'))
+                        ->prependStylesheet($this->basePath('css/font-awesome.min.css'))
+                        ->prependStylesheet('//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css')
+                        ->prependStylesheet($this->basePath('css/bootstrap.min.css')) ?>
+        
+
+    </head>
+    <body class="fixed">
+    	<!-- Header -->
+		<header>
+		    <a href="<?php echo $this->url('home')?>" class="logo">
+		    	<span>NON AXEBO</span>
+		    </a>
+		    <nav class="navbar navbar-static-top">
+		        <a href="#" class="navbar-btn sidebar-toggle">
+		            <span class="sr-only">Toggle navigation</span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		        </a> 		        
+		        <div class="navbar-right">
+		            <ul class="nav navbar-nav">
+		                <li class="dropdown widget-user">
+		                
+		                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		                        <img src="<?php echo $this->basepath('/img/perfil/');?><?php echo 'default.png'?>" class="pull-left" alt="image" />
+		                        <span><i class="fa fa-caret-down"></i></span>
+		                    </a>
+		                    
+		                    <ul class="dropdown-menu">
+		                        <li>
+		                            <a href="#"><i class="fa fa-cog"></i>Configuración</a>
+		                        </li>
+		                        <li>
+		                            <a href="<?php echo $this->url('perfil');?>"><i class="fa fa-user"></i>Perfil</a>
+		                        </li>
+		                        <li class="footer">
+		                            <a href="<?php echo $this->url('salir');?>"><i class="fa fa-power-off"></i>Salir del Sistema</a>
+		                        </li>
+		                    </ul>
+		                </li>
+		            </ul>
+		        </div>
+		    </nav>
+		</header>
+		<!-- /.header -->    	
+    
+         
+        <div class="wrapper">
+        
+           	<div class="leftside">
+		        <div class="sidebar">
+		            <div class="user-box">
+		                <div class="avatar"><img src="<?php echo $this->basepath('/img/perfil/');?><?php echo 'default.png' ?>" alt="imagen de perfil" /> </div>
+		                <div class="details">
+		                
+		                	<?php if(isset($usuario)): ?>
+								<p><?php echo $usuario['nombres'] . ' ' . $usuario['primerApellido'] . ' ' . $usuario['segundoApellido']; ?></p>
+								<span class="position"><?php echo $usuario['rol']; ?></span>
+			                <?php endif; ?>            
+		                   
+		                </div>
+		                <div class="button">
+		                    <a href="<?php echo $this->url('salir');?>" title="Salir del sistema"><i class="fa fa-power-off"></i></a>
+		                </div>
+		            </div>
+		            
+		            <ul class="sidebar-menu">
+		                <li class="title">Navegación</li>
+		                <?php //\Zend\Debug\Debug::dump($this->identity()); ?>
+		                
+		                <?php if($usuario['rol'] == "docente"): ?>
+
+			            <?php else: ?>
+			             	   
+		                <?php endif; ?>
+		                
+		            </ul>
+		            	            
+		        </div>
+		    </div><!-- Barra laterial derecha-->
+           	
+           	<div class="rightside">
+            	
+           		<div class="page-head">          
+		            
+		            <h1><?php echo $this->titulo; ?> <small> <?php echo $this->subtitulo; ?></small></h1>
+		            
+		            <?php echo $this->navigation('navigation') 
+					              ->breadcrumbs()
+					              ->setMinDepth(0)
+					              ->setPartial('partial/breadcrumb.phtml'); 
+				    ?>		                         	
+				    <?php if($usuario['rol'] == "docente"): ?>
+					    <!-- <div class="logo_int">
+							<img alt="logo Universidad Israel" src="<?php //echo $this->basePath('img/logo_uisrael_azul.png'); ?>" width="320" height="auto"/>						
+						</div> -->
+					<?php endif;?>
+	                
+		        </div>
+           		<div class="content" style="background-repeat:no-repeat; background-size: 20%; background-position: center top;">
+            		<?php echo $this->content; ?>
+            	</div>
+            </div>
+                 
+        </div>
+        
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+        		->prependFile($this->basePath('js/custom.js'))
+        		->prependFile($this->basePath('js/users_custom.js'))
+	        	->prependFile($this->basePath('js/maniac.js'))
+	        	->prependFile($this->basePath('js/plugins/slimScroll/jquery.slimscroll.min.js'))
+	        	->prependFile($this->basePath('js/plugins/bootstrap/bootstrap-dialog.min.js'))
+	        	->prependFile($this->basePath('js/plugins/bootstrap/bootstrap.min.js'))
+	            ->prependFile($this->basePath('js/plugins/jquery-ui/jquery-ui-1.10.4.min.js'))
+	            ->prependFile($this->basePath('js/plugins/jquery/jquery-1.10.2.min.js'))
+	            ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+	            ->prependFile($this->basePath('js/html5shiv.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',));?>
+    </body>
+</html>
+

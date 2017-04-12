@@ -1,0 +1,4 @@
+codUsuario;usuario;clave;rol
+1;admin;21232f297a57a5a743894a0e4a801fc3;Administrador
+2;wilmer;ac99fecf6fcb8c25d18788d14a5384ee;Administrador
+3;docente;ac99fecf6fcb8c25d18788d14a5384ee;Docente

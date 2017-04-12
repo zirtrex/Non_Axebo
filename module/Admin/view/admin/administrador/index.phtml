@@ -1,0 +1,112 @@
+<?php $url_order = ($this->order == 'ASC') ? 'DESC' : 'ASC'; ?>
+
+<?php
+	$buscarForm = $this->buscarForm;
+	$buscarForm->setAttribute('action', $this->url('ciclo-academico'));
+	$buscarForm->prepare();
+?>
+
+<div class="box">
+	<div class="box-title">
+		<i class="fa fa-fw fa-child"></i>
+		<h3>Administradores</h3>
+		<div class="pull-right box-toolbar">
+			<a class="btn btn-link btn-xs collapse-box" href="#"><i class="fa fa-chevron-up"></i></a>			
+		</div>
+	</div>
+	<div class="box-body">
+	
+		<div class="row">
+		
+			<div class="col-md-6">
+				<a class="btn btn-labeled btn-success" href="<?php echo $this->url("administrador", array('action' => 'agregar-administrador')); ?>"><span class="btn-label"><i class="fa fa-fw fa-plus-square"></i></span>Agregar</a>
+			</div>
+			
+			<div class="col-lg-6 col-md-6 col-sm-8 col-xs-12 margin-bottom">
+				<?php echo $this->form()->openTag($buscarForm);?>
+					<div class="input-group">						
+						<?php echo $this->formInput($buscarForm->get('texto')); ?>
+						<span class="input-group-btn">
+							<?php echo $this->formInput($buscarForm->get('buscar')); ?>
+						</span>
+					</div>
+				<?php echo $this->form()->closeTag($buscarForm);?>
+			</div>
+			
+		</div>
+		
+		<hr>
+		
+		<?php if($this->administradores->count() != 0):?>
+			<table class="table table-hover table-striped" data-server="adm">
+			    <thead>
+			    <tr>
+			        <th><a href="<?php echo $this->url('administrador', array('action' => 'index', 'orderby' => 'codadministrador', 'order' => $url_order)); ?>">Código<?php if ($this->orderby == 'codadministrador'): ?><i class="glyphicon glyphicon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i><?php endif; ?></a></th>
+			        <th><a href="<?php echo $this->url('administrador', array('action' => 'index', 'orderby' => 'nombres', 'order' => $url_order)); ?>">Nombres<?php if ($this->orderby == 'nombres'): ?><i class="glyphicon glyphicon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i><?php endif; ?></a></th>
+			        <th><a href="<?php echo $this->url('administrador', array('action' => 'index', 'orderby' => 'primerApellido', 'order' => $url_order)); ?>">Primer apellido<?php if ($this->orderby == 'primerApellido'): ?><i class="glyphicon glyphicon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i><?php endif; ?></a></th>      
+			        <th><a href="<?php echo $this->url('administrador', array('action' => 'index', 'orderby' => 'segundoApellido', 'order' => $url_order)); ?>">Segundo apellido<?php if ($this->orderby == 'segundoApellido'): ?><i class="glyphicon glyphicon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i><?php endif; ?></a></th>
+			        <th>Tipo de documento</th>
+			        <th>Número de documento</th>      
+			        <th>Correo</th>
+			        <th>Celular</th>
+			        <th>Acciones</th>			        
+			    </tr>
+			    </thead>
+			    <tbody>
+			    <?php foreach ($this->administradores as $administrador): ?>    
+			    <tr>			        
+			        <td><?php echo $this->escapeHtml($administrador['codAdministrador']);?></td>
+			        
+			        <td><?php echo $this->escapeHtml($administrador['nombres']);?>
+			        
+			        <td><?php echo $this->escapeHtml($administrador['primerApellido']);?></td>
+			        
+			        <td><?php echo $this->escapeHtml($administrador['segundoApellido']);?></td>
+			        
+			        <td><?php echo $this->escapeHtml($administrador['tipoDocumento']);?></td>
+			        
+			        <td><?php echo $this->escapeHtml($administrador['numeroDocumento']);?></td>
+			        
+			        <td><?php echo $this->escapeHtml($administrador['correo']);?></td>	
+			        
+			        <td><?php echo $this->escapeHtml($administrador['celular']);?></td>
+			        
+			        <td>
+			        	<?php if ($administrador['codUsuario']==Null):?>
+								<a title="Asignar usuario" class="btn palette-sun-flower btn-sm" href="<?php echo $this->url('administrador', array('action' => 'asignar-usuario', 'codadministrador' =>$administrador['codAdministrador']));?>">
+								   <i class="glyphicon glyphicon-user"></i>
+							    </a>
+						<?php endif; ?>
+						<a title="Editar Administrador" class="btn btn-info btn-sm" href="<?php echo $this->url('administrador', array('action' => 'editar-administrador', 'codadministrador' =>$administrador['codAdministrador']));?>" >
+							<i class="fa fa-edit"></i>  
+						</a>
+						<a title="Eliminar Administrador" class="btn btn-danger btn-sm delete-this" id="delete-<?php echo $administrador['codAdministrador'];?>" href="<?php echo $this->url('administrador', array('action' => 'editar-administrador', 'codadministrador' =>$administrador['codAdministrador']));?>">
+							<i class="fa fa-trash-o"></i> 
+						</a>		
+					</td>
+			    </tr>
+			    <?php endforeach; ?>
+			    </tbody>
+			    <tfoot>
+			    <tr>
+			        <th>Código</th>
+			        <th>Nombres</th>
+			        <th>Primer apellido</th>      
+			        <th>Segundo apellido</th>
+			        <th>Tipo de documento</th>
+			        <th>Número de documento</th>      
+			        <th>Correo</th>
+			        <th>Celular</th>
+			        <th>Acciones</th>			        
+			    </tr>
+			    </tfoot>    
+			</table>
+
+			<?php echo $this->paginationControl($this->administradores, 'Sliding', 'paginator', array('route' => 'administrador', 'action' => 'index', 'orderby' => $this->orderby, 'order' => $order));?>
+			<?php else: ?>
+			
+			<h2>No se han encontrado resultados.</h2>
+		
+		<?php endif;?>			
+	</div>
+</div>

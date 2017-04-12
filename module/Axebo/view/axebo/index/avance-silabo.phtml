@@ -1,0 +1,150 @@
+<?php 
+	$this->layout()->setVariable('titulo', 'Sílabo'); 
+	
+	$temas = array();
+	$temasAvanzados = array();
+	$temasNoTerminados = array();
+	
+	foreach ($this->temas as $clave => $valor){ array_push($temas, $valor);	}
+
+	foreach ($this->temasAvanzados as $clave => $valor){ array_push($temasAvanzados, $valor); }	
+	
+	foreach ($temas as $claveA => $valorA){	
+	
+		foreach ($temasAvanzados as $claveB => $valorB){
+		
+			if($valorA['codSilaboDetalle'] ==  $valorB['codSilaboDetalle']){
+				
+				if($valorB['avance'] == "Terminado")
+				{				
+					unset($temas[$claveA]);
+					break;
+				}
+			}
+		
+		}
+		
+	}
+	
+?>	
+
+<div class="box">
+	<div class="box-title">
+		<i class="glyphicon glyphicon-pencil"></i>
+		<h3>Agregar Tema a la sesión/clase actual</h3>
+		<div class="pull-right box-toolbar">
+			<a class="btn btn-link btn-xs collapse-box" href="#"><i class="fa fa-chevron-up"></i></a>
+		</div>
+	</div>
+	<div class="box-body">
+		<?php if($temas):?>
+		<form action="<?php echo $this->url('registrar-avance');?>" method="post" class="form-horizontal" role="form">
+		
+			<input type="hidden" name="codSesionClase" value="<?php echo $this->dataUrl[0]; ?>">
+			<input type="hidden" name="codCargaAcademica" value="<?php echo $this->dataUrl[1]; ?>"/>
+			<input type="hidden" name="codCicloAcademico" value="<?php echo $this->dataUrl[2]; ?>"/>
+			<input type="hidden" name="codCurso" value="<?php echo $this->dataUrl[3]; ?>"/>
+			<input type="hidden" name="codModalidad" value="<?php echo $this->dataUrl[4]; ?>"/>
+			<input type="hidden" name="paralelo" value="<?php echo $this->dataUrl[5]; ?>"/>
+			<input type="hidden" name="codAula" value="<?php echo $this->dataUrl[6]; ?>"/>
+			<input type="hidden" name="codSeccion" value="<?php echo $this->dataUrl[7]; ?>"/>
+			<input type="hidden" name="totalTemas" value="<?php echo $this->temas->count(); ?>"/>
+			
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Seleccione el tema a tratar:</label>
+				<div class="col-sm-10">
+					<select class="form-control" name="codSilaboDetalle">
+						<?php foreach ($temas as $tema): ?>
+							<option value="<?php echo $this->escapeHtml($tema['codSilaboDetalle']);?>"><?php echo $this->escapeHtml($tema['tematica']);?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Estado:</label>
+				<div class="col-sm-10">
+					<input type="radio" name="avance" value="Iniciado" checked="checked"/>Iniciado
+        			<input type="radio" name="avance" value="Terminado" />Terminado
+        		</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="input-text">Observaciones:</label>
+				<div class="col-sm-10">
+					<textarea rows="5" style="width: 100%" name="observaciones" placeholder="Escriba algún comentario o incidente sobre el tema"></textarea>
+				</div>
+			</div>        		
+			
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="input-text"></label>
+				<div class="col-sm-10">
+					<input class="btn btn-success btn-outline" type="submit" value="Guardar tema y terminar la clase"/>
+				</div>
+			</div>
+		</form>
+		
+		<?php else: ?>
+
+			<h2>Aún no hay temas registrados y/o ya los cubrió todos</h2>
+		
+		<?php endif;?>
+			
+	</div>	
+</div>
+	
+<div class="box">
+	<div class="box-title">
+		<i class="fa fa-fw fa-paperclip"></i>
+		<h3>Temas Avanzados</h3>
+		<div class="pull-right box-toolbar">
+			<a class="btn btn-link btn-xs collapse-box" href="#"><i class="fa fa-chevron-up"></i></a>			
+		</div>
+	</div>
+	<div class="box-body">			
+		<?php if($temasAvanzados):?>	
+		<table class="table table-hover table-striped">
+		    <thead>
+		    <tr>
+		        <th>N°</th>
+		        <th>Temática</th>
+		        <th>Observaciones</th>      
+		        <th>Estado</th>
+		    </tr>
+		    </thead>
+		    <tbody>
+		    <?php
+		    	$i = 0;
+				foreach ($temasAvanzados as $temaAvanzado) :
+				$i++;
+			?>    
+		    <tr>
+		        <td><?php echo $i;?></td>
+		        
+		        <td><?php echo $this->escapeHtml($temaAvanzado['tematica']);?></td>
+		        
+		         <td><?php echo $this->escapeHtml($temaAvanzado['observaciones']);?></td>
+		        
+		        <td><?php echo $this->escapeHtml($temaAvanzado['avance']);?></td>    
+		        
+		    </tr>
+		    <?php endforeach; ?>
+		    </tbody>
+		    <tfoot>
+		    <tr>
+		        <th>N°</th>
+		        <th>Temática</th>
+		        <th>Observaciones</th>
+		        <th>Estado</th>
+		    </tr>
+		    </tfoot>    
+		</table>
+		
+		<?php else: ?>
+			<h2>Aún no ha registrado ningún tema.</h2>		
+		<?php endif;?>
+	</div>
+</div>
+	
+
+
